@@ -1,8 +1,21 @@
 import { getProducts } from "../data/product"
-import { ProductCard } from "../components/ProductCard";
+import ProductCard from "../components/ProductCard";
+import { getProductsApi } from "../services/product.service";
+import { useEffect, useState } from "react";
 
-export function Home() {  
-    const products = getProducts();
+export default function Home() {
+    const [products, setProducts] = useState();
+
+    useEffect(()=> {
+async function  fetchAllProducts(){
+        const products = await getProductsApi();
+        setProducts(products);
+    }
+    fetchAllProducts();
+    }, [])
+
+
+    
     return (
         <div className="page">
             <div className="home-hero">
